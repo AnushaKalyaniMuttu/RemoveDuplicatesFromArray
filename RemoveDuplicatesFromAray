@@ -1,0 +1,57 @@
+package org.example;
+
+import java.util.Arrays;
+
+public class ClassB {
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3, 4, 43, 324, 23, 12, 32, 32, 1};
+        nums = sortArray(nums);
+
+
+        int[] distinct = new int[getLengthOfDistinct(nums)];
+
+        int count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            boolean exists = checkifValueExits(nums[i], distinct);
+            if (!exists) {
+                distinct[count++] = nums[i];
+            }
+        }
+        Arrays.stream(nums).boxed().forEach(e->System.out.print(e+ " "));
+        System.out.println();
+        Arrays.stream(distinct).boxed().forEach(y->System.out.print(y+" "));
+    }
+
+    private static boolean checkifValueExits(int value, int[] distinct) {
+        boolean exists = false;
+        for (int i = 0; i < distinct.length; i++) {
+            if (value == distinct[i]) {
+                exists = true;
+            }
+        }
+        return exists;
+    }
+
+    private static int getLengthOfDistinct(int[] nums) {
+        int count = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[i - 1]) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private static int[] sortArray(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] < arr[j]) {
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        return arr;
+    }
+}
