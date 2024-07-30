@@ -1,0 +1,25 @@
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Solution {
+    public int removeDuplicates(int[] nums) {
+        // Convert array to list
+        List<Integer> list = Arrays.stream(nums)
+                                    .boxed() // Convert int to Integer
+                                    .collect(Collectors.toList());
+
+        // Remove duplicates using LinkedHashSet to preserve order
+        List<Integer> uniqueList = list.stream()
+                                        .distinct() // Remove duplicates
+                                        .collect(Collectors.toList());
+
+        // Copy back to array
+        for (int i = 0; i < uniqueList.size(); i++) {
+            nums[i] = uniqueList.get(i);
+        }
+
+        return uniqueList.size();
+    }
+}
